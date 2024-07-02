@@ -2,4 +2,18 @@ from django.contrib import admin
 from . import models
 
 
-admin.site.register(models.Produto)
+class VariacaoInline(admin.TabularInline):
+    model = models.Variacao
+    min_num = 1
+
+
+class ProdutoAdmin(admin.ModelAdmin):
+    #list_display = ['nome', 'descricao_curta',
+    #                'get_preco_formatado', 'get_preco_promocional_formatado']
+    inlines = [
+        VariacaoInline
+    ]
+
+
+admin.site.register(models.Produto, ProdutoAdmin)
+admin.site.register(models.Variacao)
