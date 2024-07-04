@@ -20,6 +20,9 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
+    path('', include('loja.produto.urls')),
+    path('perfil/', include('loja.perfil.urls')),
+    path('pedido/', include('loja.pedido.urls')),
     path('admin/', admin.site.urls),
     
 ] + static(
