@@ -41,11 +41,18 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Third Apps
     'debug_toolbar',
+    'crispy_forms',
+    'crispy_bootstrap5',
     # Local Apps
     'loja.produto',
     'loja.pedido',
     'loja.perfil',
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
