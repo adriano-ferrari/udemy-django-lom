@@ -5,6 +5,8 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.contrib import messages
 
+from ..perfil.models import Perfil
+
 from . import models
 
 
