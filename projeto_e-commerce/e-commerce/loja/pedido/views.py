@@ -10,7 +10,20 @@ from ..pedido.models import Pedido, ItemPedido
 from ..produto.models import Variacao
 
 
-class Pagar(DetailView):
+class DispatchLoginRequiredMixin(View):
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect('perfil:criar')
+
+        return super().dispatch(*args, **kwargs)
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+        qs = qs.filter(usuario=self.request.user)
+        return qs
+
+
+class SalvarPedido(View):
     template_name = 'pedido/pagar.html'
 
     def get(self, *args, **kwargs):
@@ -105,16 +118,18 @@ class Pagar(DetailView):
         )
 
 
-class SalvarPedido(View):
-    def get(self, *args, **kwargs):
-        return HttpResponse('SalvarPedido')
-
-
-class Lista(ListView):
-    def get(self, *args, **kwargs):
-        return HttpResponse('Lista')
+class Pagar(DispatchLoginRequiredMixin, DetailView):
+    template_name = 'pedido/pagar.html'
+    model = Pedido
+    pk_url_kwarg = 'pk'
+    context_object_name = 'pedido'
 
 
 class Detalhe(DetailView):
     def get(self, *args, **kwargs):
         return HttpResponse('Detalhe')
+
+
+class Lista(ListView):
+    def get(self, *args, **kwargs):
+        return HttpResponse('Lista')
