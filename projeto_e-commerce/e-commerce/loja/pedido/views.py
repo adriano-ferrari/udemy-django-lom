@@ -5,7 +5,7 @@ from django.views.generic.list import ListView
 from django.views.generic import DetailView
 from django.contrib import messages
 
-import utils
+from utils import utils
 from ..pedido.models import Pedido, ItemPedido
 from ..produto.models import Variacao
 
